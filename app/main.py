@@ -4,7 +4,9 @@ from pydantic import BaseModel
 from app.database import engine, SessionLocal
 from app.models import Base, Product
 
-Base.metadata.create_all(bind=engine)
+@app.on_event("startup")
+def startup():
+    Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Online Store API",
