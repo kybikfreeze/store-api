@@ -1,11 +1,12 @@
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = os.environ["DATABASE_URL"]
-
-engine = create_engine(DATABASE_URL)
-
+def get_engine():
+    database_url = os.getenv("DATABASE_URL")
+    if not database_url:
+        raise Exception("DATABASE_URL is missing")
+    return create_engine(database_url)
+    
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,

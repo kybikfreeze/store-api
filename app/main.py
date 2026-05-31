@@ -11,6 +11,7 @@ app = FastAPI(
 
 @app.on_event("startup")
 def startup():
+    engine = get_engine()
     Base.metadata.create_all(bind=engine)
 
 
