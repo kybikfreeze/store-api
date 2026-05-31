@@ -4,15 +4,19 @@ from pydantic import BaseModel
 from app.database import engine, SessionLocal
 from app.models import Base, Product
 
-@app.on_event("startup")
-def startup():
-    Base.metadata.create_all(bind=engine)
-
 app = FastAPI(
     title="Online Store API",
     version="1.0.0"
 )
 
+@app.on_event("startup")
+def startup():
+    Base.metadata.create_all(bind=engine)
+
+
+@app.get("/")
+def root():
+    return {"message": "API works"}
 # ----------------------
 # Pydantic schemas
 # ----------------------
